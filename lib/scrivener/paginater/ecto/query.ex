@@ -34,7 +34,7 @@ defimpl Scrivener.Paginater, for: Ecto.Query do
       |> exclude(:order_by)
       |> prepare_select
       |> count
-      |> repo.one(caller: caller)
+      |> repo.one(caller: caller, timeout: Application.get_env!(:scrivener_ecto, :count_timeout, 15_000))
 
     total_entries || 0
   end
